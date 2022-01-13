@@ -6,7 +6,7 @@
 
     <groupId>me.mrscopes</groupId>
     <artifactId>skript-economy</artifactId>
-    <version>1.0</version>
+    <version>0.2-alpha</version>
     <packaging>jar</packaging>
 
     <name>skript-economy</name>
@@ -80,7 +80,7 @@
         <dependency>
             <groupId>com.github.SkriptLang</groupId>
             <artifactId>Skript</artifactId>
-            <version>2.5.3</version>
+            <version>2.6-beta3</version>
             <scope>provided</scope>
             <exclusions>
                 <exclusion>

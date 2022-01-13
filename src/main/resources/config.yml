@@ -1,1 +1,8 @@
-# soontm
+# don't include {}
+# default: balance::*
+variable: balance::*
+
+# use uuid over player's names, i.e. "balance::%player's uuid%" instead of "balance::%player%"
+# this is recommended since users can change their name and they'll lose their balance if it isn't enabled
+# default: true
+use uuids: true

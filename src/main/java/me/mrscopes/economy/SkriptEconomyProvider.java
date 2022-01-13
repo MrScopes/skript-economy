@@ -13,13 +13,22 @@ import java.util.List;
 public class SkriptEconomyProvider implements Economy {
     SkriptEconomy plugin;
     FileConfiguration config;
+    String variable;
+    Boolean useUUID;
     DecimalFormat formatter;
 
     public SkriptEconomyProvider() {
         this.plugin = SkriptEconomy.get();
         this.config = plugin.getConfig();
+        this.variable = config.getString("variable").replace("*", "");
+        this.useUUID = config.getBoolean("use uuids");
         this.formatter = new DecimalFormat("#,###.00");
     }
+
+    public String getVariableFor(OfflinePlayer player) {
+        return useUUID ? this.variable + player.getUniqueId() : this.variable + player.getName();
+    }
+
     @Override
     public boolean isEnabled() {
         return true;
@@ -42,7 +51,7 @@ public class SkriptEconomyProvider implements Economy {
 
     @Override
     public String format(double v) {
-        return "$" + this.formatter.format(v);
+        return "$" + (v != 0 ? this.formatter.format(v) : 0);
     }
 
     @Override
@@ -83,7 +92,8 @@ public class SkriptEconomyProvider implements Economy {
 
     @Override
     public double getBalance(OfflinePlayer offlinePlayer) {
-        Object balance = Variables.getVariable("balance::" + offlinePlayer.getUniqueId(), null, false);
+        Object balance = Variables.getVariable(getVariableFor(offlinePlayer), null, false);
+        if (balance == null) balance = 0;
         return Double.parseDouble(balance.toString());
     }
 
@@ -124,7 +134,7 @@ public class SkriptEconomyProvider implements Economy {
 
     @Override
     public EconomyResponse withdrawPlayer(OfflinePlayer offlinePlayer, double v) {
-        Variables.setVariable("balance::" + offlinePlayer.getUniqueId().toString(), getBalance(offlinePlayer) - v, null, false);
+        Variables.setVariable(getVariableFor(offlinePlayer), getBalance(offlinePlayer) - v, null, false);
         return new EconomyResponse(v, getBalance(offlinePlayer), EconomyResponse.ResponseType.SUCCESS, null);
     }
 
@@ -145,7 +155,7 @@ public class SkriptEconomyProvider implements Economy {
 
     @Override
     public EconomyResponse depositPlayer(OfflinePlayer offlinePlayer, double v) {
-        Variables.setVariable("balance::" + offlinePlayer.getUniqueId(), getBalance(offlinePlayer) + v, null, false);
+        Variables.setVariable(getVariableFor(offlinePlayer), getBalance(offlinePlayer) + v, null, false);
         return new EconomyResponse(v, getBalance(offlinePlayer), EconomyResponse.ResponseType.SUCCESS, null);
     }
 
