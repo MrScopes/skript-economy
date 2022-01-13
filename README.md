@@ -1,0 +1,2 @@
+# skript-economy
+Link a skript variable with vault to register as an economy provider. **WORKS, BUT CONFIG SOON** currently just does does `balance::<player uuid>` for the variable ![img.png](img.png) in this image I have player -> player's uuid enabled in config ![img_1.png](img_1.png) auction house plugin working with it

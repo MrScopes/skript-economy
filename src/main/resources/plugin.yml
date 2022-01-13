@@ -1,0 +1,9 @@
+name: skript-economy
+version: ${project.version}
+description: Link your Skript Economy with Vault.
+depend:
+  - Skript
+  - Vault
+main: me.mrscopes.economy.SkriptEconomy
+website: https://github.com/MrScopes/skript-economy
+authors: [ MrScopes ]
