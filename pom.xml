@@ -6,13 +6,13 @@
 
     <groupId>me.mrscopes</groupId>
     <artifactId>skript-economy</artifactId>
-    <version>0.2-alpha</version>
+    <version>0.3-alpha</version>
     <packaging>jar</packaging>
 
     <name>skript-economy</name>
 
     <properties>
-        <java.version>17</java.version>
+        <java.version>8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <jar.finalName>${project.name}</jar.finalName>
     </properties>

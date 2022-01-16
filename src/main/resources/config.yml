@@ -1,8 +1,22 @@
-# don't include {}
-# default: balance::*
-variable: balance::*
+# /skripteconomy
+# default: skripteconomy.reload
+reload permission: skripteconomy.reload
+# default: "&cYou don't have access to that command."
+permission message: "&cYou don't have access to that command."
+
+# default: "balance::*"
+variable: "balance::*"
 
 # use uuid over player's names, i.e. "balance::%player's uuid%" instead of "balance::%player%"
 # this is recommended since users can change their name and they'll lose their balance if it isn't enabled
 # default: true
 use uuids: true
+
+# default: $
+currency symbol: "$"
+
+# currently formats as $1,234.56 / $10 with plugins that support it
+# setting this to false makes it so only the number shows, not even the $ symbol
+# soon: format options
+# default: true
+number format: true

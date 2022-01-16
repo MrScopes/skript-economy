@@ -12,21 +12,25 @@ import java.util.List;
 
 public class SkriptEconomyProvider implements Economy {
     SkriptEconomy plugin;
-    FileConfiguration config;
-    String variable;
-    Boolean useUUID;
     DecimalFormat formatter;
+    FileConfiguration config;
 
     public SkriptEconomyProvider() {
         this.plugin = SkriptEconomy.get();
-        this.config = plugin.getConfig();
-        this.variable = config.getString("variable").replace("*", "");
-        this.useUUID = config.getBoolean("use uuids");
         this.formatter = new DecimalFormat("#,###.00");
+        this.config = plugin.getConfig();
+    }
+
+    public FileConfiguration config() {
+        return plugin.getConfig();
+    }
+
+    public String variable() {
+        return config().getString("variable").replace("*", "");
     }
 
     public String getVariableFor(OfflinePlayer player) {
-        return useUUID ? this.variable + player.getUniqueId() : this.variable + player.getName();
+        return config().getBoolean("use uuids") ? variable() + player.getUniqueId() : variable() + player.getName();
     }
 
     @Override
@@ -51,17 +55,27 @@ public class SkriptEconomyProvider implements Economy {
 
     @Override
     public String format(double v) {
-        return "$" + (v != 0 ? this.formatter.format(v) : 0);
+        final String value;
+        String amount = String.valueOf(v).replaceAll("\\.0?0", "");
+
+        Boolean format = config().getBoolean("number format");
+        if (!format) {
+            value = String.valueOf(amount.endsWith(".0") ? Long.valueOf(amount) : amount);
+        } else {
+            value = currencyNameSingular() + (v != 0 ? this.formatter.format(v) : amount);
+        }
+
+        return value.replaceAll("\\.0?0", "");
     }
 
     @Override
     public String currencyNamePlural() {
-        return "$";
+        return currencyNameSingular();
     }
 
     @Override
     public String currencyNameSingular() {
-        return "$";
+        return config().getString("currency symbol");
     }
 
     @Override

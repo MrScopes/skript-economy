@@ -6,7 +6,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 public final class SkriptEconomy extends JavaPlugin {
 
     public static SkriptEconomy instance;
-
     public static SkriptEconomy get() {
         return instance;
     }
@@ -16,5 +15,6 @@ public final class SkriptEconomy extends JavaPlugin {
         instance = this;
         saveDefaultConfig();
         getServer().getServicesManager().register(net.milkbowl.vault.economy.Economy.class, new SkriptEconomyProvider(), this, ServicePriority.High);
+        getCommand("skripteconomy").setExecutor(new ReloadCommand());
     }
 }

@@ -7,3 +7,6 @@ depend:
 main: me.mrscopes.economy.SkriptEconomy
 website: https://github.com/MrScopes/skript-economy
 authors: [ MrScopes ]
+commands:
+  skripteconomy:
+    description: Reload the Skript Economy.
